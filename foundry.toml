@@ -1,0 +1,14 @@
+[profile.default]
+src = 'src'
+out = 'out'
+libs = ['lib']
+gas_reports = ["*"]
+fs_permissions = [{ access = "read", path = "./"}]
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config
+
+goerli = "${GOERLI_RPC_URL}"
+goerli = { key = "${ETHERSCAN_API_KEY}" }
+
+mainnet = "${MAINNET_RPC_URL}"
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
