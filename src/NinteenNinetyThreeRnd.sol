@@ -49,7 +49,6 @@ contract NinteenNinetyThreeRnd {
             return drawNumber();
         }
         totalDraws--;
-        console.log(drawnNumber);
         return drawnNumber;
     }
 }
