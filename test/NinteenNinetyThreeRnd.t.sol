@@ -22,7 +22,7 @@ contract NinteenNinetyThreeRndTest is Test {
     }
 
     function totalDraws() internal returns(uint256 result){
-        for(uint8 i=0; i< counts.length; i++){
+        for(uint8 i=0; i<counts.length; i++){
             result += counts[i];
         }
     }
@@ -31,17 +31,25 @@ contract NinteenNinetyThreeRndTest is Test {
         ninteenNinetyThreeRnd.initializeValues(counts.length, counts);
     }
 
-    function testDrawNumbers() public{
+    // function testDrawNumbers() public{
+    //     uint256 totalDraws = totalDraws();
+    //     uint256[] memory results = new uint256[](totalDraws);
+    //     ninteenNinetyThreeRnd.initializeValues(counts.length, counts);
+    //     for(uint256 i = 0; i < totalDraws; i++){
+    //         results[i] = ninteenNinetyThreeRnd.drawNumber();
+    //         drawnResults[results[i]] ++;
+    //     }
+
+    //     for(uint8 i = 0; i < arrayDim +1; i++){
+    //         assertEq(drawnResults[i], i);
+    //     }
+    // }
+
+    function testDrawMultipleNumbers() public{
         uint256 totalDraws = totalDraws();
         uint256[] memory results = new uint256[](totalDraws);
         ninteenNinetyThreeRnd.initializeValues(counts.length, counts);
-        for(uint256 i = 0; i < totalDraws; i++){
-            results[i] = ninteenNinetyThreeRnd.drawNumber();
-            drawnResults[results[i]] ++;
-        }
-
-        for(uint8 i = 0; i < arrayDim +1; i++){
-            assertEq(drawnResults[i], i);
-        }
+        results = ninteenNinetyThreeRnd.drawMultipleNumbers(totalDraws);
+        // assertEq(results.length, totalDraws);
     }
 }

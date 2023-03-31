@@ -42,11 +42,11 @@ contract NinteenNinetyThreeTest is Test {
         ninteenNinetyThree.toggleAdmin(_address);
     }
 
-    function testSetRndAddress(address _address) public{
-        ninteenNinetyThree.setRndAddress(address(ninteenNinetyThreeRnd));
+    function testSetRndAddress() public{
+        ninteenNinetyThree.setRndAddress    (address(ninteenNinetyThreeRnd));
     }
 
-    function testFailSetRndAddress(address _address) public{
+    function testFailSetRndAddress() public{
         vm.prank(collector1);
         ninteenNinetyThree.setRndAddress(address(ninteenNinetyThreeRnd));
     }
@@ -118,4 +118,6 @@ contract NinteenNinetyThreeTest is Test {
             _rewardAmount
         );
     }
+
+    
 }
