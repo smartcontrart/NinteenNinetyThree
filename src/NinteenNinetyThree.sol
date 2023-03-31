@@ -19,7 +19,6 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
 
     uint8[] public supplyLimits;
 
-
     struct Puzzle{
         uint8 id;
         uint8 numOfpieces;
@@ -70,11 +69,25 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
         supplyLimits = _supplyLimits;
     }
 
-    function mint(address _to, uint256 _tokenId, uint256 _amount) external adminRequired {
+    function adminMint(address _to, uint256 _tokenId, uint256 _amount) external adminRequired {
         _mint(_to, _tokenId, _amount, "0x0");
     }
 
-    function mintBatch(address _to, uint256 [] calldata _tokenIds, uint256 [] calldata _amounts) external adminRequired {
+    function adminMintBatch(address _to, uint256 [] calldata _tokenIds, uint256 [] calldata _amounts) external adminRequired {
+        _mintBatch(_to, _tokenIds, _amounts, "0x0");
+    }
+
+    function mint(address _to, uint256 _amount) external adminRequired {
+        uint256 _tokenId = NinteenNinetyThreeRnd(ninteenNinetyThreeRndAddress).drawNumber();
+        _mint(_to, _tokenId, 1, "0x0");
+    }
+
+    function mintBatch(address _to, uint256 quantity) external adminRequired {
+        uint256 [] memory _tokenIds = NinteenNinetyThreeRnd(ninteenNinetyThreeRndAddress).drawMultipleNumbers(quantity);
+        uint256[] memory _amounts = new uint256[](quantity);
+        for(uint8 i = 0; i < quantity; i++){
+            _amounts[i] = 1;
+        }
         _mintBatch(_to, _tokenIds, _amounts, "0x0");
     }
 
