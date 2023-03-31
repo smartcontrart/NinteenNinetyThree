@@ -42,6 +42,15 @@ contract NinteenNinetyThreeTest is Test {
         ninteenNinetyThree.toggleAdmin(_address);
     }
 
+    function testSetRndAddress(address _address) public{
+        ninteenNinetyThree.setRndAddress(address(ninteenNinetyThreeRnd));
+    }
+
+    function testFailSetRndAddress(address _address) public{
+        vm.prank(collector1);
+        ninteenNinetyThree.setRndAddress(address(ninteenNinetyThreeRnd));
+    }
+
     function testSetSupplyLimits() public{
         ninteenNinetyThree.setSupplyLimits(supplyLimits);
     }
