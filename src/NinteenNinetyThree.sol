@@ -4,6 +4,7 @@ pragma solidity ^0.8.17;
 import "openzeppelin-contracts/token/ERC1155/ERC1155.sol";
 import "openzeppelin-contracts/interfaces/IERC2981.sol";
 import "openzeppelin-contracts/utils/Strings.sol";
+import "./NinteenNinetyThreeRnd.sol";
 import "operator-filter-registry/DefaultOperatorFilterer.sol";
 
 contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
@@ -11,9 +12,13 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
     uint256 royaltyAmount;
     uint8 puzzleId;
     address royaltiesRecipient;
+    address public ninteenNinetyThreeRndAddress;
     mapping(address => bool) private isAdmin;
     mapping(uint256 => string) private uris;
     mapping(uint8 => Puzzle) public puzzles;
+
+    uint8[] public supplyLimits;
+
 
     struct Puzzle{
         uint8 id;
@@ -56,6 +61,15 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
         isAdmin[_admin] = !isAdmin[_admin];
     }
 
+    function setRndAddress(address _ninteenNinetyThreeRndAddress) external adminRequired {
+        ninteenNinetyThreeRndAddress = _ninteenNinetyThreeRndAddress;
+    }
+
+    function setSupplyLimits(uint8[] calldata _supplyLimits) external adminRequired {
+        delete supplyLimits;
+        supplyLimits = _supplyLimits;
+    }
+
     function mint(address _to, uint256 _tokenId, uint256 _amount) external adminRequired {
         _mint(_to, _tokenId, _amount, "0x0");
     }
@@ -75,6 +89,10 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
 
     function setURI(string calldata _uri) external adminRequired {
         _setURI(_uri);
+    }
+
+    function initializeRndContract()external adminRequired{
+        NinteenNinetyThreeRnd(ninteenNinetyThreeRndAddress).initializeValues(supplyLimits.length, supplyLimits);
     }
 
     function uri(uint256 _tokenId) public view virtual override returns (string memory) {

@@ -41,11 +41,7 @@ contract NinteenNinetyThreeRndTest is Test {
         }
 
         for(uint8 i = 0; i < arrayDim +1; i++){
-            console.log(
-                "Results ",
-                i,
-                ": ",
-                drawnResults[i]);
+            assertEq(drawnResults[i], i);
         }
     }
 }

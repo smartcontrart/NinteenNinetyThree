@@ -9,13 +9,27 @@ contract NinteenNinetyThreeRnd {
         uint256 count;
     }
 
+    mapping (address => bool) isAdmin;
     mapping (uint256 => Number) private numbers;
     uint256 private totalNumbers;
     uint256 private totalDraws;
     uint256 public nonce;
 
+    error Unauthorized();
+
     constructor() {
+        isAdmin[msg.sender] = true;
     }
+
+    modifier adminRequired() {
+        if (!isAdmin[msg.sender]) revert Unauthorized();
+        _;
+    }
+
+    function toggleAdmin(address _admin) external adminRequired {
+        isAdmin[_admin] = !isAdmin[_admin];
+    }
+
 
     function initializeValues(uint256 _totalNumbers, uint8 [] calldata numberCounts) external{
         totalNumbers = _totalNumbers;
