@@ -25,7 +25,7 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
     }
 
     error BalanceTooLow();  
-    error InvalidUris();
+    error InvalidPieces();
     error PuzzlePieceMissing(uint256);
     error Unauthorized();
 
@@ -93,6 +93,7 @@ contract NinteenNinetyThree is ERC1155, IERC2981, DefaultOperatorFilterer  {
         uint256 _reward,
         uint256 _rewardAmount
     ) external adminRequired{
+        // if(_pieces.length != _amounts.length) revert InvalidPieces();
         Puzzle memory puzzle;
         puzzle.id = puzzleId;
         puzzle.numOfpieces = _numOfpieces;

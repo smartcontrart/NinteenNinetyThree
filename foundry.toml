@@ -12,3 +12,5 @@ goerli = { key = "${ETHERSCAN_API_KEY}" }
 
 mainnet = "${MAINNET_RPC_URL}"
 mainnet = { key = "${ETHERSCAN_API_KEY}" }
+
+solc-version = "0.8.18"

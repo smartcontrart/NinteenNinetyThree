@@ -70,8 +70,8 @@ contract NinteenNinetyThreeTest is Test {
         uint256 _reward,
         uint256 _rewardAmount
     ) public {
-        vm.assume(_pieces.length>100);
         vm.prank(collector1);
+
         ninteenNinetyThree.setPuzzle(
             _numOfpieces,
             _pieces,
